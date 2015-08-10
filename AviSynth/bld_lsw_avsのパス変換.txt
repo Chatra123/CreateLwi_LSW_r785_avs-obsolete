@@ -1,0 +1,51 @@
+lsw-build2
+--------------------------------------------------------------------------
+
+VC++ディレクトリ　→　インクルードディレクトリ
+set CL= /I
+D:\LSW-BU~1\msys64\mingw32\include
+
+
+リンカー　→　入力　→　追加の依存ファイル
+set LINK
+libpthread.a
+libopenjpeg.a
+libopus.a
+libswresample.a
+libmsvcrt.a
+
+VC++ディレクトリ　→　ライブラリディレクトリ
+/LIBPATH:
+D:\LSW-BU~1\msys64\mingw32\lib
+/LIBPATH:
+D:\LSW-BU~1\msys64\mingw32\X86_64~1\lib32
+/LIBPATH:
+D:\LSW-BU~1\msys64\mingw32\lib\gcc\X86_64~1\498796~1.2\32
+
+
+--------------------------------------------------------------------------
+change path
+  abs --> ref
+
+D:\LSW-BU~1\msys64\home\asc\CreateLwi-LSWr785\AviSynth             project working directory
+
+D:\LSW-BU~1\msys64                                                 ..\..\..\..\
+
+インクルード
+D:\LSW-BU~1\msys64\mingw32\include                                 ..\..\..\..\mingw32\include
+
+ライブラリ
+D:\LSW-BU~1\msys64\mingw32\lib                                     ..\..\..\..\mingw32\lib
+
+D:\LSW-BU~1\msys64\mingw32\X86_64~1\lib32                          ..\..\..\..\mingw32\X86_64~1\lib32
+
+D:\LSW-BU~1\msys64\mingw32\lib\gcc\X86_64~1\498796~1.2\32          ..\..\..\..\mingw32\lib\gcc\X86_64~1\498796~1.2\32
+
+
+
+--------------------------------------------------------------------------
+
+
+
+
+
