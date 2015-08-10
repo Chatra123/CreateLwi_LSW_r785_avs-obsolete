@@ -39,16 +39,10 @@
     <ClCompile Include="lsmashsource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\common\lwindex.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\common\lwlibav_audio.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\common\lwlibav_dec.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lwlibav_source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\common\lwlibav_video.c">
@@ -69,6 +63,9 @@
     <ClCompile Include="video_output.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CreateLwi.cpp" />
+    <ClCompile Include="..\common\lwindex.c" />
+    <ClCompile Include="lwlibav_source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio_output.h">
@@ -98,16 +95,10 @@
     <ClInclude Include="lsmashsource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\lwindex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\common\lwlibav_audio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\common\lwlibav_dec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lwlibav_source.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\common\lwlibav_video.h">
@@ -131,5 +122,7 @@
     <ClInclude Include="..\common\video_output.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\common\lwindex.h" />
+    <ClInclude Include="lwlibav_source.h" />
   </ItemGroup>
 </Project>
