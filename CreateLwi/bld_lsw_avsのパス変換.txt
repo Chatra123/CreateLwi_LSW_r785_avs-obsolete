@@ -14,6 +14,7 @@ libopus.a
 libswresample.a
 libmsvcrt.a
 
+
 VC++ディレクトリ　→　ライブラリディレクトリ
 /LIBPATH:
 D:\LSW-BU~1\msys64\mingw32\lib
@@ -31,10 +32,12 @@ D:\LSW-BU~1\msys64\home\asc\CreateLwi-LSWr785\AviSynth             project worki
 
 D:\LSW-BU~1\msys64                                                 ..\..\..\..\
 
-インクルード
+
+VC++ディレクトリ　→　インクルードディレクトリ
 D:\LSW-BU~1\msys64\mingw32\include                                 ..\..\..\..\mingw32\include
 
-ライブラリ
+
+VC++ディレクトリ　→　ライブラリディレクトリ
 D:\LSW-BU~1\msys64\mingw32\lib                                     ..\..\..\..\mingw32\lib
 
 D:\LSW-BU~1\msys64\mingw32\X86_64~1\lib32                          ..\..\..\..\mingw32\X86_64~1\lib32
