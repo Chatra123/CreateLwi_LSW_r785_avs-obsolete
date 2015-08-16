@@ -59,3 +59,45 @@ int lwlibav_import_av_index_entry
 (
     lwlibav_decode_handler_t *dhp
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//====================================
+/*CreateLwi*/
+typedef struct
+{
+  char    *filepath;
+  char    *filepath_innerlwi;
+  char    *lwipath;
+  bool    mode_stdin;
+  bool    create_footer;
+  double  readlimit_MiBsec;
+} cmdlineinfo_handler;
+
+
+int lwlibav_construct_index_B
+(
+lwlibav_file_handler_t         *lwhp,
+lwlibav_video_decode_handler_t *vdhp,
+lwlibav_video_output_handler_t *vohp,
+lwlibav_audio_decode_handler_t *adhp,
+lwlibav_audio_output_handler_t *aohp,
+lw_log_handler_t               *lhp,
+lwlibav_option_t               *opt,
+progress_indicator_t           *indicator,
+progress_handler_t             *php,
+cmdlineinfo_handler            *clih
+);
