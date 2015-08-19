@@ -1,0 +1,26 @@
+
+## LSMASHSource.dllからの変更点
+
+
+#### CreateLwi.cpp
+* lwlibav_source.cppのincludeを追加
+* lwlibav_source.h  class LWLibavVideoSourceの変数を追加
+* lwlibav_source.cppからLWLibavVideoSource::LWLibavVideoSource(...) を追加
+* lwlibav_source.cppからAVSValue CreateLWLibavVideoSource(...)をメイン関数後半に追加
+
+
+#### lwindex.h
+* struct　cmdlineinfo_handlerを追加
+
+
+#### lwindex.c
+* static void create_index_B(...)を追加
+* int lwlibav_construct_index_B(..)を追加
+
+
+#### misc
+* lwlibav_source.h、lwlibav_source.cppへの変更は無し
+* その他のファイルへの変更も無し
+
+
+------------------------------------------------

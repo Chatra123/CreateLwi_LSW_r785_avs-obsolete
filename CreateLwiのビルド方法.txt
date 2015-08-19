@@ -1,0 +1,17 @@
+
+## CreateLwiのビルド方法
+
+L-SMASH WorksのLSMASHSource.dllと同じ設定ならビルドできます。
+
+-----------------------------------------------------------
+
+### 手順
+
+ - MaverickTseさんのlsw-build2を使いffmpeg、L-SMASH、L-SMASH Worksをいれます。
+
+ - D:\lsw-build2-master\msys64\home\usernameに移動します。  
+   ffmpeg、l-smash、LSWフォルダやshファイルがたくさんあるところです。
+
+ - ここにCreateLwi_LSWr785フォルダをいれ、  
+   D:\lsw-build2-master\msys64\home\abc\CreateLwi_LSWr785\CreateLwi\bld_lsw_avs.bat  
+   を実行する。
