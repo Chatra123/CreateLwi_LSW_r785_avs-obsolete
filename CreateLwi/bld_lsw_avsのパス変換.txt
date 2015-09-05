@@ -3,11 +3,13 @@ lsw-build2
 
 VC++ディレクトリ　→　インクルードディレクトリ
 set CL= /I
+
 D:\LSW-BU~1\msys64\mingw32\include
 
 
 リンカー　→　入力　→　追加の依存ファイル
 set LINK
+
 libpthread.a
 libopenjpeg.a
 libopus.a
@@ -26,7 +28,7 @@ D:\LSW-BU~1\msys64\mingw32\lib\gcc\X86_64~1\498796~1.2\32
 
 --------------------------------------------------------------------------
 change path
-  abs --> ref
+  absolute path  --> reference path
 
 D:\LSW-BU~1\msys64\home\asc\CreateLwi-LSWr785\AviSynth             project working directory
 
