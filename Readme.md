@@ -65,9 +65,15 @@ lwiファイル内の`<InputFilePath>`にフルパスでなくファイル名を
 L-SMASH WorksのLSMASHSource.dllからインデックス作成部分のみを実行ファイルにしました。
 Yusuke Nakamura/VFR-maniacさん及び開発に関わった方々にお礼申し上げます。
 
+LSMASHSOURCE.dll作成までは、
+drocon11さんのlw-build及び、MaverickTseさんのlsw-build2
+を利用させていただきました。お礼申し上げます。
+
+
+
 
 ------------------------------------------------------------------
 ### ライセンス
-ISCライセンス
+ISCライセンス  
 ソースコードにあるLICENSEファイルを確認してください。
 
