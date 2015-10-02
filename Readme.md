@@ -23,22 +23,22 @@ CreateLwi.exe  -pipe "C:\video.ts"  -lwi "C:\video.ts.lwi"
 
     -pipe  "C:\video.ts"  
 パイプからデータを受けとる  
-lwiファイル内の`<InputFilePath>`にC:\video.tsが書き込みます。 
+lwiファイル内の`<InputFilePath>`にC:\video.tsを書き込みます。 
 
 
     -lwi  "C:\video.ts"  
-lwiファイルの出力ファイル名を指定  
+lwiファイルの出力名を指定  
 拡張子.lwiがなければ付加されます。  
 -lwiがなければ入力ファイル名からlwiファイル名を作成します。
-
+文字コード　shift-jis
 
     -footer  
 lwiのフッターを出力  
--pipeが指定されているときのみ定期的にfooter部分を出力します。
+-pipeが指定されているときのみ定期的にfooter部分を出力できます。
 
 
     -ref_filename  
-lwiファイル内の`<InputFilePath>`にフルパスでなくファイル名を書き込む。
+lwiファイル内の`<InputFilePath>`にフルパスでなくファイル名を書き込みます。
 
 
     -limit 10.0  
@@ -62,12 +62,18 @@ lwiファイル内の`<InputFilePath>`にフルパスでなくファイル名を
 
 ------------------------------------------------------------------
 ### 謝辞
-L-SMASH WorksのLSMASHSource.dllからインデックス作成部分のみを実行ファイルにしました。
+L-SMASH WorksのLSMASHSource.dllからインデックス作成部分のみを実行ファイルにしました。  
 Yusuke Nakamura/VFR-maniacさん及び開発に関わった方々にお礼申し上げます。
+
+LSMASHSource.dll作成までは、  
+drocon11さんのlw-build及び、MaverickTseさんのlsw-build2  
+を利用させていただきました。お礼申し上げます。
+
+
 
 
 ------------------------------------------------------------------
 ### ライセンス
-ISCライセンス
+ISCライセンス  
 ソースコードにあるLICENSEファイルを確認してください。
 
