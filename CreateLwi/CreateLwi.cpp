@@ -46,7 +46,7 @@ int                 direct_rendering,
 int                 stacked_format,
 enum AVPixelFormat  pixel_format,
   IScriptEnvironment   *env,
-  cmdlineinfo_handler  *clih
+  cmdlineinfo_handler__byCrLwi  *clih
   )
 {
   memset(&vi, 0, sizeof(VideoInfo));
@@ -79,7 +79,7 @@ enum AVPixelFormat  pixel_format,
   /* Construct index. */
   lwlibav_audio_decode_handler_t adh = { 0 };
   lwlibav_audio_output_handler_t aoh = { 0 };
-  int ret = lwlibav_construct_index_B(&lwh, &vdh, &voh, &adh, &aoh, &lh, opt, &indicator, NULL, clih);
+  int ret = lwlibav_construct_index__byCrLwi(&lwh, &vdh, &voh, &adh, &aoh, &lh, opt, &indicator, NULL, clih);
   lwlibav_cleanup_audio_decode_handler(&adh);
   lwlibav_cleanup_audio_output_handler(&aoh);
 
@@ -122,7 +122,7 @@ int main(size_t argc, char* argv[])
   char filepath[1024] = "", lwipath[1024] = "";
   bool mode_stdin = false;
   bool fullpath_innerlwi = true;
-  bool create_footer = true;
+  bool create_footer = false;
   double readlimit_MiBsec = 0.0;
 
   for (size_t i = 1; i < argc; i++)
@@ -215,7 +215,7 @@ int main(size_t argc, char* argv[])
 
 
   //cmdlineinfo_handlerì¬
-  cmdlineinfo_handler clih;
+  cmdlineinfo_handler__byCrLwi clih;
   clih.filepath = filepath;
   clih.filepath_innerlwi = filepath_innerlwi;
   clih.lwipath = lwipath;

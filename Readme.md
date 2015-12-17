@@ -1,12 +1,17 @@
 ﻿
-## CreateLwi
+## CreateLwi    L-SMASH Works r785
 
 L-SMASH Worksのlwiファイルを作成します。
 
 
-
 ------------------------------------------------------------------
 ### 使い方
+
+Run_CreateLwi.batにTSファイルをドロップ
+
+
+### 使い方　　コマンドライン
+
 ファイル  
 CreateLwi.exe  "C:\video.ts"
 
@@ -17,24 +22,27 @@ CreateLwi.exe  -pipe "C:\video.ts"  -lwi "C:\video.ts.lwi"
 
 ------------------------------------------------------------------
 ### 引数
+
     -file  "C:\video.ts"  
 入力ファイル名
 
 
     -pipe  "C:\video.ts"  
 パイプからデータを受けとる  
-lwiファイル内の`<InputFilePath>`にC:\video.tsを書き込みます。 
+lwiファイル内の`<InputFilePath>`にC:\video.tsを書き込みます。  
 
 
     -lwi  "C:\video.ts"  
 lwiファイルの出力名を指定  
 拡張子.lwiがなければ付加されます。  
--lwiがなければ入力ファイル名からlwiファイル名を作成します。
+-lwiがなければ入力ファイル名からlwiファイル名を作成します。  
 文字コード　shift-jis
+
 
     -footer  
 lwiのフッターを出力  
--pipeが指定されているときのみ定期的にfooter部分を出力できます。
+-pipeが指定されているときのみ定期的にfooter部分を出力します。  
+文字コード　shift-jis, binary
 
 
     -ref_filename  
@@ -51,12 +59,9 @@ lwiファイル内の`<InputFilePath>`にフルパスでなくファイル名を
 
 * 引数-fileと-pipeで作成したインデックスは同一のファイルにならないときがあります。  
 （いくつかのPTS,DTS値が異なる。）  
-また、PTS,DTSの大部分が異なる場合を確認しています。値は異なりますが変化の仕方はほとんどが同じでした。  
+また、PTS,DTSの大部分が異なる場合を確認しています。
+値は異なりますが変化の仕方はほとんどが同じでした。
 それに伴いファイルサイズも大きく変わります。
-
-
-* LSMASHSOURCE.dllと同様にmsvcp120.dll、msvcr120.dllが必要です。
-起動時にエラーが出る場合は"Visual Studio 2013 の Visual C++ 再頒布可能パッケージ"を入れてください。
 
 
 
@@ -70,10 +75,17 @@ drocon11さんのlw-build及び、MaverickTseさんのlsw-build2
 を利用させていただきました。お礼申し上げます。
 
 
+Copyright (C) 2012-2015 L-SMASH Works project
 
+Avisynth v2.5.  Copyright 2002 Ben Rudiak-Gould et al.
+http://www.avisynth.org
 
 ------------------------------------------------------------------
 ### ライセンス
-ISCライセンス  
-ソースコードにあるLICENSEファイルを確認してください。
+
+    GPL v3
+    Copyright (C) 2014  CHATRA
+    http://www.gnu.org/licenses/
+
+
 

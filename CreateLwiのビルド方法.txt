@@ -14,5 +14,5 @@ L-SMASH WorksのLSMASHSource.dllと同じ設定でビルドできます。
 
  - ここにCreateLwi_LSWr785フォルダをおき、  
    batファイル
-   "D:\lsw-build2-master\msys64\home\abc\CreateLwi_LSWr785\CreateLwi\bld_lsw_avs.bat  "
+   "D:\lsw-build2-master\msys64\home\abc\CreateLwi_LSWr785\CreateLwi\bld_lsw_avs.bat"
    を実行する。

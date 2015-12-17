@@ -10,17 +10,18 @@
 
 
 #### lwindex.h
-* struct　cmdlineinfo_handlerを追加
+* struct　cmdlineinfo_handler__byCrLwiを追加
 
 
 #### lwindex.c
-* static void create_index_B(...)を追加
-* int lwlibav_construct_index_B(..)を追加
+* static void create_index__byCrLwi(...)を追加
+* int lwlibav_construct_index__byCrLwi(..)を追加
 
 
 #### misc
 * lwlibav_source.h、lwlibav_source.cppへの変更は無し
-* その他のファイルへの変更も無し
+* その他のファイルの変更も無し
 
 
 ------------------------------------------------
+
