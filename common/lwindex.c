@@ -3195,7 +3195,7 @@ int lwlibav_import_av_index_entry
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-static void create_index_B
+static void create_index__byCrLwi
 (
 lwlibav_file_handler_t         *lwhp,
 lwlibav_video_decode_handler_t *vdhp,
@@ -3206,7 +3206,7 @@ AVFormatContext                *format_ctx,
 lwlibav_option_t               *opt,
 progress_indicator_t           *indicator,
 progress_handler_t             *php,
-cmdlineinfo_handler            *clih,
+cmdlineinfo_handler__byCrLwi  *clih,
 lw_log_handler_t               *lhp
 )
 {
@@ -4237,7 +4237,7 @@ fail_index:
 
 /////////////////////////////////////////////////////////////////////////////
 
-int lwlibav_construct_index_B
+int lwlibav_construct_index__byCrLwi
 (
 lwlibav_file_handler_t         *lwhp,
 lwlibav_video_decode_handler_t *vdhp,
@@ -4248,7 +4248,7 @@ lw_log_handler_t               *lhp,
 lwlibav_option_t               *opt,
 progress_indicator_t           *indicator,
 progress_handler_t             *php,
-cmdlineinfo_handler            *clih
+cmdlineinfo_handler__byCrLwi   *clih
 )
 {
   /* Allocate frame buffer. */
@@ -4368,7 +4368,7 @@ cmdlineinfo_handler            *clih
   vdhp->stream_index = -1;
   adhp->stream_index = -1;
   /* Create the index file. */
-  create_index_B(lwhp, vdhp, vohp, adhp, aohp, format_ctx, opt, indicator, php, clih, lhp);
+  create_index__byCrLwi(lwhp, vdhp, vohp, adhp, aohp, format_ctx, opt, indicator, php, clih, lhp);
   /* Close file.
   * By opening file for video and audio separately, indecent work about frame reading can be avoidable. */
   lavf_close_file(&format_ctx);

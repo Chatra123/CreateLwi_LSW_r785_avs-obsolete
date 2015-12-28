@@ -85,10 +85,10 @@ typedef struct
   bool    mode_stdin;
   bool    create_footer;
   double  readlimit_MiBsec;
-} cmdlineinfo_handler;
+} cmdlineinfo_handler__byCrLwi;
 
 
-int lwlibav_construct_index_B
+int lwlibav_construct_index__byCrLwi
 (
 lwlibav_file_handler_t         *lwhp,
 lwlibav_video_decode_handler_t *vdhp,
@@ -99,5 +99,5 @@ lw_log_handler_t               *lhp,
 lwlibav_option_t               *opt,
 progress_indicator_t           *indicator,
 progress_handler_t             *php,
-cmdlineinfo_handler            *clih
+cmdlineinfo_handler__byCrLwi   *clih
 );
