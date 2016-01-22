@@ -1,5 +1,5 @@
 ﻿
-## CreateLwi    L-SMASH Works r785
+## CreateLwi    L-SMASH Works c785
 
 L-SMASH Worksのlwiファイルを作成します。
 
@@ -36,7 +36,7 @@ lwiファイル内の`<InputFilePath>`にC:\video.tsを書き込みます。
 lwiファイルの出力名を指定  
 拡張子.lwiがなければ付加されます。  
 -lwiがなければ入力ファイル名からlwiファイル名を作成します。  
-文字コード　shift-jis
+文字コード　shift-jis, binary
 
 
     -footer  

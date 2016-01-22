@@ -1,5 +1,5 @@
 
-## LSMASHSource.dllからの変更点
+## L-SMASH Worksからの変更点
 
 
 #### CreateLwi.cpp
