@@ -103,23 +103,15 @@ enum AVPixelFormat  pixel_format,
 }
 
 
-
-
-
-
-
-
-
-
 //
-// -file "E:\_TSsamp\n60s.ts"  -ref_filename  -lwi "E:\_TSsamp\n60s.ts.debug.lwi"
+//コマンドライン解析
 //
-//
-int main(size_t argc, char* argv[])
+void CommandLineParser(
+  size_t argc, char* argv[],
+  char* filepath, char* lwipath, char* filepath_innerlwi,
+  cmdlineinfo_handler__byCrLwi* clih
+  )
 {
-
-  //引数チェック
-  char filepath[1024] = "", lwipath[1024] = "";
   bool mode_stdin = false;
   bool fullpath_innerlwi = true;
   bool create_footer = false;
@@ -175,22 +167,10 @@ int main(size_t argc, char* argv[])
     }
   }
 
-
-
-
-
-  //ファイルの存在チェック
-  if (mode_stdin == false)
-  {
-    FILE *fp = fopen(filepath, "r");
-    if (fp == NULL)  return 1;         //オープン失敗、終了
-  }
-
-
   //lwipath
-  //  指定がない？
+  //  指定なし？　filepathから lwipath作成
   if (_strnicmp(lwipath, "", 1) == 0)
-    sprintf(lwipath, "%s", filepath);  //filepath → lwipathにコピー
+    sprintf(lwipath, "%s", filepath);
 
   //  拡張子.lwiがなければつける
   char ext[64];
@@ -198,9 +178,7 @@ int main(size_t argc, char* argv[])
   if (_strnicmp(ext, ".lwi", 5) != 0)
     sprintf(lwipath, "%s.lwi", lwipath);
 
-
-  //filepath_innerlwi
-  char filepath_innerlwi[1024] = "";
+  //lwi内に書き込むfilepath
   if (fullpath_innerlwi)
     sprintf(filepath_innerlwi, "%s", filepath);
   else
@@ -211,28 +189,54 @@ int main(size_t argc, char* argv[])
     sprintf(filepath_innerlwi, "%s%s", fname, ext);
   }
 
+  //result
+  clih->filepath = filepath;
+  clih->filepath_innerlwi = filepath_innerlwi;
+  clih->lwipath = lwipath;
+  clih->create_footer = create_footer && mode_stdin;
+  clih->mode_stdin = mode_stdin;
+  clih->readlimit_MiBsec = readlimit_MiBsec;
+
+  return;
+}
 
 
+//
+//debug commandline argument
+//  -file "E:\TS_Samp\n60s.ts"  -ref_filename  -lwi "E:\TS_Samp\n60s.ts.debug.lwi"
+//  -file "E:\TS_Samp\scramble_180s.ts"  -ref_filename  -lwi "E:\TS_Samp\scramble_180s.ts.debug.lwi"
+//
 
-  //cmdlineinfo_handler作成
+//
+//　Main
+//
+int main(size_t argc, char* argv[])
+{
   cmdlineinfo_handler__byCrLwi clih;
-  clih.filepath = filepath;
-  clih.filepath_innerlwi = filepath_innerlwi;
-  clih.lwipath = lwipath;
-  clih.create_footer = create_footer && mode_stdin;
-  clih.mode_stdin = mode_stdin;
-  clih.readlimit_MiBsec = readlimit_MiBsec;
+  char filepath[1024] = "";
+  char lwipath[1024] = "";
+  char filepath_innerlwi[1024] = "";
+
+  CommandLineParser(
+    argc, argv,
+    filepath, lwipath, filepath_innerlwi,
+    &clih);
+
+  //ファイルの存在チェック
+  if (clih.mode_stdin == false)
+  {
+    FILE *fp = fopen(clih.filepath, "r");
+    if (fp == NULL)
+      return 1;         //オープン失敗、終了
+  }
 
 
-
-
-
-  /*  reference  */
-  /*  lwlibav_source.cpp  AVSValue CreateLWLibavVideoSource(...)  */
+  ///*  reference  */
+  ///*  lwlibav_source.cpp  AVSValue CreateLWLibavVideoSource(...)  */
   int stacked_format = 0;
   enum AVPixelFormat pixel_format = AV_PIX_FMT_NONE;       // get_av_output_pixel_format(args[12].AsString(NULL));
   lwlibav_option_t opt;
-  opt.file_path = filepath;
+  opt.file_path = clih.filepath;
   opt.threads = -1;
   opt.av_sync = 0;
   opt.no_create_index = 0;

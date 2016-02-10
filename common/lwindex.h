@@ -80,8 +80,8 @@ int lwlibav_import_av_index_entry
 typedef struct
 {
   char    *filepath;
-  char    *filepath_innerlwi;
   char    *lwipath;
+  char    *filepath_innerlwi;
   bool    mode_stdin;
   bool    create_footer;
   double  readlimit_MiBsec;
