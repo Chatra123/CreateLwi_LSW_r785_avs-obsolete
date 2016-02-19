@@ -176,7 +176,11 @@ void CommandLineParser(
   char ext[64];
   _splitpath(lwipath, NULL, NULL, NULL, ext);
   if (_strnicmp(ext, ".lwi", 5) != 0)
-    sprintf(lwipath, "%s.lwi", lwipath);
+  {
+    char lwipath_tmp[1024];
+    sprintf(lwipath_tmp, "%s.lwi", lwipath);
+    sprintf(lwipath, "%s", lwipath_tmp);
+  }
 
   //lwiì‡Ç…èëÇ´çûÇﬁfilepath
   if (fullpath_innerlwi)
