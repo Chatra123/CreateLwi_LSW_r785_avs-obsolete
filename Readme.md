@@ -7,7 +7,7 @@ L-SMASH Worksのlwiファイルを作成します。
 ------------------------------------------------------------------
 ### 使い方
 
-Run_CreateLwi.batにTSファイルをドロップ
+Run_CreateLwi.batのショートカットを作成し、TSファイルをドロップ
 
 
 ### 使い方　　コマンドライン
@@ -15,8 +15,8 @@ Run_CreateLwi.batにTSファイルをドロップ
 ファイル  
 CreateLwi.exe  "C:\video.ts"
 
-パイプ  
-CreateLwi.exe  -pipe "C:\video.ts"  -lwi "C:\video.ts.lwi"
+パイプ   lwi名指定
+CreateLwi.exe  -pipe "C:\video.ts"  -lwi "D:\video.ts.lwi" 
 
 
 
@@ -75,10 +75,14 @@ drocon11さんのlw-build及び、MaverickTseさんのlsw-build2
 を利用させていただきました。お礼申し上げます。
 
 
-Copyright (C) 2012-2015 L-SMASH Works project
+    Copyright (C) 2012-2015 L-SMASH Works project
 
-Avisynth v2.5.  Copyright 2002 Ben Rudiak-Gould et al.
-http://www.avisynth.org
+    Avisynth v2.5.  Copyright 2002 Ben Rudiak-Gould et al.
+    http://www.avisynth.org
+
+    Copyright (c) 2000-2015 the FFmpeg developers  
+    https://www.ffmpeg.org/  
+    https://github.com/FFmpeg/FFmpeg  
 
 ------------------------------------------------------------------
 ### ライセンス
