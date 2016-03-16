@@ -91,5 +91,3 @@ drocon11さんのlw-build及び、MaverickTseさんのlsw-build2
     Copyright (C) 2014  CHATRA
     http://www.gnu.org/licenses/
 
-
-
