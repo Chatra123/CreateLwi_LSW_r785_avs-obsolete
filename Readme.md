@@ -1,5 +1,5 @@
 ﻿
-## CreateLwi    L-SMASH Works c785
+## CreateLwi    L-SMASH Works r785
 
 L-SMASH Worksのlwiファイルを作成します。
 
@@ -15,7 +15,7 @@ Run_CreateLwi.batのショートカットを作成し、TSファイルをドロ�
 ファイル  
 CreateLwi.exe  "C:\video.ts"
 
-パイプ   lwi名指定
+パイプ   lwi名指定  
 CreateLwi.exe  -pipe "C:\video.ts"  -lwi "D:\video.ts.lwi" 
 
 
@@ -67,10 +67,10 @@ lwiファイル内の`<InputFilePath>`にフルパスでなくファイル名を
 
 ------------------------------------------------------------------
 ### 謝辞
-L-SMASH WorksのLSMASHSource.dllからインデックス作成部分のみを実行ファイルにしました。  
+L-SMASH Worksからインデックス作成部分のみを実行ファイルにしました。  
 Yusuke Nakamura/VFR-maniacさん及び開発に関わった方々にお礼申し上げます。
 
-LSMASHSource.dll作成までは、  
+LSW 各プラグイン作成までは、  
 drocon11さんのlw-build及び、MaverickTseさんのlsw-build2  
 を利用させていただきました。お礼申し上げます。
 
@@ -90,6 +90,4 @@ drocon11さんのlw-build及び、MaverickTseさんのlsw-build2
     GPL v3
     Copyright (C) 2014  CHATRA
     http://www.gnu.org/licenses/
-
-
 
