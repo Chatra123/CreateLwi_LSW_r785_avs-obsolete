@@ -79,16 +79,16 @@ int lwlibav_import_av_index_entry
 /*CreateLwi*/
 typedef struct
 {
-  char    *filepath;
-  char    *lwipath;
-  char    *filepath_innerlwi;
-  bool    mode_stdin;
+  char    file_path[_MAX_PATH];
+  char    lwi_path[_MAX_PATH];
+  char    file_path_inner_lwi[_MAX_PATH];
+  bool    mode_pipe_input;
   bool    create_footer;
-  double  readlimit_MiBsec;
-} cmdlineinfo_handler__byCrLwi;
+  double  read_limit_MiBsec;
+} crlwi_setting_handler__CrLwi;
 
 
-int lwlibav_construct_index__byCrLwi
+int lwlibav_construct_index__CrLwi
 (
 lwlibav_file_handler_t         *lwhp,
 lwlibav_video_decode_handler_t *vdhp,
@@ -99,5 +99,5 @@ lw_log_handler_t               *lhp,
 lwlibav_option_t               *opt,
 progress_indicator_t           *indicator,
 progress_handler_t             *php,
-cmdlineinfo_handler__byCrLwi   *clih
+crlwi_setting_handler__CrLwi   *clshp
 );

@@ -45,15 +45,6 @@ extern "C"
 #include "lwindex.h"
 
 
-/*CreateLwi*/
-#include <chrono>
-#include <thread>
-#include <share.h>										//_SH_DENYWR
-//using namespace std::chrono;
-/*CreateLwi*/
-
-
-
 typedef struct
 {
     lwlibav_extradata_handler_t exh;
@@ -3192,10 +3183,28 @@ int lwlibav_import_av_index_entry
 
 
 
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
 
-static void create_index__byCrLwi
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+///*CreateLwi*/
+#include <share.h>
+#include <chrono>    // std::this_thread::sleep_for
+#include <thread>    // std::this_thread::sleep_for
+
+
+static void create_index__CrLwi
 (
 lwlibav_file_handler_t         *lwhp,
 lwlibav_video_decode_handler_t *vdhp,
@@ -3206,7 +3215,7 @@ AVFormatContext                *format_ctx,
 lwlibav_option_t               *opt,
 progress_indicator_t           *indicator,
 progress_handler_t             *php,
-cmdlineinfo_handler__byCrLwi  *clih,
+crlwi_setting_handler__CrLwi   *clshp,
 lw_log_handler_t               *lhp
 )
 {
@@ -3246,13 +3255,12 @@ lw_log_handler_t               *lhp
 
   //================
   /*CreateLwi*/
-  sprintf(index_path, "%s", clih->lwipath);
+  sprintf(index_path, "%s", clshp->lwi_path);
   //sprintf(index_path, "%s.lwi", lwhp->file_path);        /*CreateLwi_off*/
   //================
 
-
-  //FILE *index = !opt->no_create_index ? fopen(index_path, "wb") : NULL;	
-  FILE *index = !opt->no_create_index ? _fsopen(index_path, "wb", _SH_DENYWR) : NULL;    //別プロセスからの書込み不可
+  // CreateLwi  別プロセスからの書込み不可
+  FILE *index = !opt->no_create_index ? _fsopen(index_path, "wb", _SH_DENYWR) : NULL;
   if (!index && !opt->no_create_index)
   {
     free(video_info);
@@ -3277,7 +3285,7 @@ lw_log_handler_t               *lhp
     //========================================
     /*CreateLwi*/
     //lwi内のパス
-    fprintf(index, "<InputFilePath>%s</InputFilePath>\n", clih->filepath_innerlwi);
+    fprintf(index, "<InputFilePath>%s</InputFilePath>\n", clshp->file_path_inner_lwi);
     /*CreateLwi_off*/
     //fprintf(index, "<InputFilePath>%s</InputFilePath>\n", lwhp->file_path);
     //========================================
@@ -3309,18 +3317,17 @@ lw_log_handler_t               *lhp
 
   //========================================
   /*CreateLwi*/
-  //readlimit_MiBsec
-  double  tickReadSize = 0;                                             //単位時間の読み込み量
-  double  ReadSpeedLimit_Bsec = clih->readlimit_MiBsec * 1024 * 1024;
-  auto    tickBeginTime = std::chrono::system_clock::now();
-  int64_t prv_byte_read = 0;                                            //前回までの総読込み量
+  //read limit
+  double  tick_read_size = 0;                                             // read size for 200 ms
+  double  read_limit_Bsec = clshp->read_limit_MiBsec * 1024 * 1024;
+  auto    time_tick_begin = clock();
+  int64_t previous_read_pos = 0;
 
   //indexFooter
-  char footer_path[512] = { 0 };
-  sprintf(footer_path, "%s%s", clih->lwipath, "footer");
-  //FILE *fp_footer = clih->create_footer ? fopen(footer_path, "wb") : NULL;             //別プロセスからの書込み可能
-  FILE *fp_footer = clih->create_footer ? _fsopen(footer_path, "wb", _SH_DENYWR) : NULL; //　　　　　　　　書込み不可
-  auto footer_lastRefresh = std::chrono::system_clock::now();
+  FILE *fp_footer;
+  char footer_path[_MAX_PATH] = { 0 };
+  sprintf(footer_path, "%s%s", clshp->lwi_path, "footer");
+  int time_footer_refresh = clock();
   //========================================
 
 
@@ -3334,27 +3341,24 @@ lw_log_handler_t               *lhp
 
     //====================================================================
     /*CreateLwi*/
-    //読込速度制限
-    if (clih->mode_stdin == false && 0 < clih->readlimit_MiBsec)               //ファイル読込時のみ制限
+    // read speed limit
+    if (clshp->mode_pipe_input == false && 0 < read_limit_Bsec)
     {
-      //単位時間の読込み量
-      tickReadSize += format_ctx->pb->bytes_read - prv_byte_read;              //総読込み量の差
-      prv_byte_read = format_ctx->pb->bytes_read;
+      tick_read_size += format_ctx->pb->bytes_read - previous_read_pos;
+      previous_read_pos = format_ctx->pb->bytes_read;
 
-      //経過時間
-      auto tickduration = std::chrono::system_clock::now() - tickBeginTime;
-      auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(tickduration).count();
-
-      //単位時間ごとにカウンタリセット
-      if (200 <= duration_ms)
+      double elapse_ms = (double)(clock() - time_tick_begin) / CLOCKS_PER_SEC * 1000;
+      if (200 <= elapse_ms)
       {
-        tickBeginTime = std::chrono::system_clock::now();
-        tickReadSize = 0;
+        time_tick_begin = clock();
+        tick_read_size = 0;
       }
 
-      //制限を超えていたらsleep_for
-      if (ReadSpeedLimit_Bsec * (200.0 / 1000.0) < tickReadSize)
-        std::this_thread::sleep_for(std::chrono::milliseconds(200 - duration_ms));
+      if (read_limit_Bsec * (200.0 / 1000.0) < tick_read_size)
+      {
+        int sleep_ms = (int)(200 - elapse_ms);
+        std::this_thread::sleep_for(std::chrono::milliseconds(sleep_ms));
+      }
     }
     //====================================================================
 
@@ -3661,10 +3665,9 @@ lw_log_handler_t               *lhp
         bits_per_sample, frame_length);
     }
     //====================================================================
-    /*
-    CreateLwi
-    progress dialogの処理をスキップ
-    */
+    /* CreateLwi */
+    //skip progress dialog
+
     av_free_packet(&pkt);
     /*CreateLwi_off*/
     //if (indicator->update)
@@ -3701,28 +3704,32 @@ lw_log_handler_t               *lhp
     //====================================================================
     /*CreateLwi*/
     //
-    //footer作成
-    //
-    //６秒ごとに更新
-    auto duration_footer_refresh = std::chrono::system_clock::now() - footer_lastRefresh;
-    auto duration_footer_refresh_ms = std::chrono::duration_cast<std::chrono::milliseconds>(duration_footer_refresh).count();
-
-    if (clih->create_footer)
-      if (6 * 1000 <= duration_footer_refresh_ms)
+    //create footer file
+    // refresh the file every 6 sec
+    double elapse_footer_refresh = (double)(clock() - time_footer_refresh) / CLOCKS_PER_SEC * 1000;
+    if (clshp->create_footer)
+      if (6 * 1000 <= elapse_footer_refresh)
       {
-        //ファイルを再オープン
-        if (fp_footer)
-        {
-          //freopen(footer_path, "wb", fp_footer);                   //別プロセスからの書込み可能
-          fclose(fp_footer);                                         //                書込み不可
-          fp_footer = _fsopen(footer_path, "wb", _SH_DENYWR);
-        }
+        time_footer_refresh = clock();
+        //reopen
+        fp_footer = _fsopen(footer_path, "wb", _SH_DENYWR);
 
-        //再オープン成功
+
         if (fp_footer)
         {
           print_index(fp_footer, "</LibavReaderIndex>\n");
 
+//         /* CreateLwi off*/
+//        /* Deallocate video frame info if no active video stream. */
+//        if (vdhp->stream_index < 0)
+//          lw_freep(&video_info);
+//        /* Deallocate audio frame info if no active audio stream. */
+//        if (adhp->stream_index < 0)
+//          lw_freep(&audio_info);
+//        else
+//        {
+//          /* .... */
+//        }
           for (unsigned int stream_index = 0; stream_index < format_ctx->nb_streams; stream_index++)
           {
             AVStream *stream = format_ctx->streams[stream_index];
@@ -3731,7 +3738,11 @@ lw_log_handler_t               *lhp
               print_index(fp_footer, "<StreamDuration=%d,%d>-1</StreamDuration>\n",  //durationは-1にする。
               stream_index, stream->codec->codec_type);
           }
-
+//        /* CreateLwi off*/
+//        if( !strcmp( lwhp->format_name, "asf" ) )
+//        {
+//          /*....*/
+//        }
           for (unsigned int stream_index = 0; stream_index < format_ctx->nb_streams; stream_index++)
           {
             AVStream *stream = format_ctx->streams[stream_index];
@@ -3822,8 +3833,9 @@ lw_log_handler_t               *lhp
           print_index(fp_footer, "</LibavReaderIndexFile>\n");
 
 
+          /*CreateLwi*/
           fflush(fp_footer);
-          footer_lastRefresh = std::chrono::system_clock::now();
+          fclose(fp_footer);
 
         }//if
       }
@@ -3921,29 +3933,19 @@ lw_log_handler_t               *lhp
 
   //====================================================================
   /*CreateLwi*/
-  //
   //duration
-  //
-  if (clih->mode_stdin)
+  if (clshp->mode_pipe_input)
   {
-    //パイプ
-    //パイプだとdurationが決まらないのでファイルをオープンして取得する。
-    //ファイル先頭のstream_indexしか取得できなので途中から出てくるstream_indexはとれないかもしれない。
-
-    //ファイルオープン
-    AVFormatContext *format_ctxF = NULL;
-    int open_fileF = lavf_open_file(&format_ctxF, lwhp->file_path, lhp);
-
-
+    //pipe
+    //  pipe input cannot determine the duration.  reopen the file to get stream_index and duration
+    AVFormatContext *format_ctx_reopen = NULL;
+    int reopen_file = lavf_open_file(&format_ctx_reopen, lwhp->file_path, lhp);
     for (unsigned int stream_index = 0; stream_index < format_ctx->nb_streams; stream_index++)
     {
-      AVStream *stream = format_ctx->streams[stream_index];
-
-      //オープン成功 ＆ ファイル内に該当するstream_indexがある
-      if (open_fileF == 0 && stream_index < format_ctxF->nb_streams)
+      if (reopen_file == 0 && stream_index < format_ctx_reopen->nb_streams)
       {
         int stream_indexF = stream_index;
-        AVStream *streamF = format_ctxF->streams[stream_indexF];
+        AVStream *streamF = format_ctx_reopen->streams[stream_indexF];
         if (streamF->codec->codec_type == AVMEDIA_TYPE_VIDEO
           || streamF->codec->codec_type == AVMEDIA_TYPE_AUDIO)
         {
@@ -3955,19 +3957,15 @@ lw_log_handler_t               *lhp
       else
       {
         //オープン失敗 or 新しいstream_index
-        //pipeのAVStreamの値をそのまま書き込む
+        AVStream *stream = format_ctx->streams[stream_index];
         if (stream->codec->codec_type == AVMEDIA_TYPE_VIDEO
           || stream->codec->codec_type == AVMEDIA_TYPE_AUDIO)
           print_index(index, "<StreamDuration=%d,%d>%"PRId64"</StreamDuration>\n",
           stream_index, stream->codec->codec_type, stream->duration);
       }
     }
-
-    //ファイルクローズ
-    if (open_fileF && format_ctxF != NULL)
-      lavf_close_file(&format_ctxF);
-
-
+    if (reopen_file && format_ctx_reopen != NULL)
+      lavf_close_file(&format_ctx_reopen);
   }
   else
   {
@@ -3982,9 +3980,6 @@ lw_log_handler_t               *lhp
     }
 
   }
-
-
-
   //====================================================================
 
 
@@ -4237,7 +4232,7 @@ fail_index:
 
 /////////////////////////////////////////////////////////////////////////////
 
-int lwlibav_construct_index__byCrLwi
+int lwlibav_construct_index__CrLwi
 (
 lwlibav_file_handler_t         *lwhp,
 lwlibav_video_decode_handler_t *vdhp,
@@ -4248,7 +4243,7 @@ lw_log_handler_t               *lhp,
 lwlibav_option_t               *opt,
 progress_indicator_t           *indicator,
 progress_handler_t             *php,
-cmdlineinfo_handler__byCrLwi   *clih
+crlwi_setting_handler__CrLwi   *clshp
 )
 {
   /* Allocate frame buffer. */
@@ -4265,8 +4260,8 @@ cmdlineinfo_handler__byCrLwi   *clih
 
   //================
   /*CreateLwi*/
-  opt->file_path = clih->lwipath;
-  lwhp->file_path = clih->filepath;
+  opt->file_path = clshp->lwi_path;
+  lwhp->file_path = clshp->file_path;
   //================
 
 
@@ -4296,10 +4291,8 @@ cmdlineinfo_handler__byCrLwi   *clih
 
 
   /*CreateLwi*/
-  /*インデックスファイルのチェックはファイルのみ、パイプは毎回作成する*/
-  if (clih->mode_stdin == false)
-  {
-    if (index)     //インデックスファイルがあれば、バージョン＆中身をチェック
+  if (clshp->mode_pipe_input == false)
+    if (index)
     {
       int version = 0;
       int ret = fscanf(index, "<LibavReaderIndexFile=%d>\n", &version);
@@ -4316,7 +4309,6 @@ cmdlineinfo_handler__byCrLwi   *clih
       }
       fclose(index);
     }
-  }
 
 
 
@@ -4340,15 +4332,14 @@ cmdlineinfo_handler__byCrLwi   *clih
   //====================================
   /*CreateLwi*/
   //*ファイル読込み方法を変更*/
-  int open_file;
-
-  if (clih->mode_stdin)
-    open_file = lavf_open_file(&format_ctx, "pipe:0", lhp);
-  else{
-    open_file = lavf_open_file(&format_ctx, lwhp->file_path, lhp);
+  int fail_to_open = false;
+  {
+    if (clshp->mode_pipe_input)
+      fail_to_open = lavf_open_file(&format_ctx, "pipe:0", lhp);
+    else
+      fail_to_open = lavf_open_file(&format_ctx, lwhp->file_path, lhp);
   }
-
-  if (open_file)                       //ファイルオープン失敗
+  if (fail_to_open)
   {
     if (format_ctx)
       lavf_close_file(&format_ctx);
@@ -4368,7 +4359,7 @@ cmdlineinfo_handler__byCrLwi   *clih
   vdhp->stream_index = -1;
   adhp->stream_index = -1;
   /* Create the index file. */
-  create_index__byCrLwi(lwhp, vdhp, vohp, adhp, aohp, format_ctx, opt, indicator, php, clih, lhp);
+  create_index__CrLwi(lwhp, vdhp, vohp, adhp, aohp, format_ctx, opt, indicator, php, clshp, lhp);
   /* Close file.
   * By opening file for video and audio separately, indecent work about frame reading can be avoidable. */
   lavf_close_file(&format_ctx);
@@ -4380,7 +4371,7 @@ fail:
     av_frame_free(&vdhp->frame_buffer);
   if (adhp->frame_buffer)
     av_frame_free(&adhp->frame_buffer);
-  lwhp->file_path = "abc";	           //lwhp->file_path = clih->filepath;なので"abc"にすりかえる。
+  lwhp->file_path = "dummy_string";	 //lwhp->file_path = clih->filepath;なので"dummy_string"にすりかえる。
   if (lwhp->file_path)
     lw_freep(&lwhp->file_path);
   return -1;
