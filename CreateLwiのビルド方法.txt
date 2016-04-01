@@ -1,5 +1,0 @@
-
-## CreateLwiのビルド方法
-
-L-SMASH WorksのLSMASHSource.dllと同じ設定でビルドできます。
-

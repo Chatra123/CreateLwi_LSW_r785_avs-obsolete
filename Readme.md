@@ -1,5 +1,5 @@
 ﻿
-## CreateLwi    L-SMASH Works r785
+## CreateLwi    L-SMASH Works AviSynth r785
 
 L-SMASH Worksのlwiファイルを作成します。
 

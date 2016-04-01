@@ -1,21 +1,22 @@
 
-## L-SMASH Worksからの変更点
+## L-SMASH Works AviSynthからの変更点
 
 
-#### CreateLwi.cpp
+#### CreateLwi\CreateLwi.cpp
 * lwlibav_source.cppのincludeを追加
 * lwlibav_source.h  class LWLibavVideoSourceの変数を追加
 * lwlibav_source.cppからLWLibavVideoSource::LWLibavVideoSource(...) を追加
 * lwlibav_source.cppからAVSValue CreateLWLibavVideoSource(...)をメイン関数後半に追加
 
 
-#### lwindex.h
-* struct　cmdlineinfo_handler__byCrLwiを追加
+#### common\lwindex.h
+* struct　crlwi_setting_handler__CrLwiを追加
+* int lwlibav_construct_index__CrLwi()を追加
 
 
-#### lwindex.c
-* static void create_index__byCrLwi(...)を追加
-* int lwlibav_construct_index__byCrLwi(..)を追加
+#### common\lwindex.c
+* static void create_index__CrLwi(...)を追加
+* int lwlibav_construct_index__CrLwi(..)を追加
 
 
 #### misc
@@ -24,4 +25,8 @@
 
 
 ------------------------------------------------
+## CreateLwiのビルド方法
+
+L-SMASH WorksのLSMASHSource.dllと同じ設定でビルドできます。
+
 
