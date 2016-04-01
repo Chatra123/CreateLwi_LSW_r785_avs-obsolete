@@ -2,31 +2,39 @@
 ## L-SMASH Works AviSynthからの変更点
 
 
-#### CreateLwi\CreateLwi.cpp
-* lwlibav_source.cppのincludeを追加
-* lwlibav_source.h  class LWLibavVideoSourceの変数を追加
-* lwlibav_source.cppからLWLibavVideoSource::LWLibavVideoSource(...) を追加
-* lwlibav_source.cppからAVSValue CreateLWLibavVideoSource(...)をメイン関数後半に追加
+### CreateLwi\CreateLwi.cpp
+lwlibav_source.h から
+ - class LWLibavVideoSourceの変数
+を追加
 
 
-#### common\lwindex.h
-* struct　crlwi_setting_handler__CrLwiを追加
-* int lwlibav_construct_index__CrLwi()を追加
+lwlibav_source.cppから
+ - include
+ - LWLibavVideoSource::LWLibavVideoSource(...) 
+ - AVSValue CreateLWLibavVideoSource(...)
+を追加
+
+ 
+### common\lwindex.h
+ - struct　crlwi_setting_handler__CrLwi
+ - int lwlibav_construct_index__CrLwi()
+を追加
 
 
-#### common\lwindex.c
-* static void create_index__CrLwi(...)を追加
-* int lwlibav_construct_index__CrLwi(..)を追加
+### common\lwindex.c
+ - static void create_index__CrLwi(...)
+ - int lwlibav_construct_index__CrLwi(..)
+を追加
 
 
-#### misc
-* lwlibav_source.h、lwlibav_source.cppへの変更は無し
-* その他のファイルの変更も無し
+### misc
+ - lwlibav_source.h、lwlibav_source.cppへの変更は無し
+ - その他のファイルの変更も無し
 
 
 ------------------------------------------------
-## CreateLwiのビルド方法
+## CreateLwi_LSW_r785_avsのビルド方法
 
-L-SMASH WorksのLSMASHSource.dllと同じ設定でビルドできます。
+LSMASHSource.dllと同じ設定でビルドできます。
 
 
