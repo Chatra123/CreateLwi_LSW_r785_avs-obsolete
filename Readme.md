@@ -1,5 +1,5 @@
 ﻿
-## CreateLwi    L-SMASH Works AviSynth r785
+## CreateLwi
 
 L-SMASH Worksのlwiファイルを作成します。
 
@@ -15,8 +15,8 @@ Run_CreateLwi.batのショートカットを作成し、TSファイルをドロ�
 ファイル  
 CreateLwi.exe  "C:\video.ts"
 
-パイプ   lwi名指定  
-CreateLwi.exe  -pipe "C:\video.ts"  -lwi "D:\video.ts.lwi" 
+パイプ  
+CreateLwi.exe  -pipe "C:\video.ts"
 
 
 
@@ -60,15 +60,16 @@ lwiファイル内の`<InputFilePath>`にフルパスでなくファイル名を
 * 引数-fileと-pipeで作成したインデックスは同一のファイルにならないときがあります。  
 （いくつかのPTS,DTS値が異なる。）  
 また、PTS,DTSの大部分が異なる場合を確認しています。
-値は異なりますが変化の仕方はほとんどが同じでした。
 それに伴いファイルサイズも大きく変わります。
 
 
 
 ------------------------------------------------------------------
 ### 謝辞
+based on L-SMASH Works AviSynth r785
 L-SMASH Worksからインデックス作成部分のみを実行ファイルにしました。  
 Yusuke Nakamura/VFR-maniacさん及び開発に関わった方々にお礼申し上げます。
+
 
 LSW 各プラグイン作成までは、  
 drocon11さんのlw-build及び、MaverickTseさんのlsw-build2  
@@ -84,6 +85,7 @@ drocon11さんのlw-build及び、MaverickTseさんのlsw-build2
     https://www.ffmpeg.org/  
     https://github.com/FFmpeg/FFmpeg  
 
+    
 ------------------------------------------------------------------
 ### ライセンス
 
