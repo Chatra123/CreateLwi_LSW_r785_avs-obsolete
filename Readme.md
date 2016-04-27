@@ -67,7 +67,7 @@ lwiファイル内の`<InputFilePath>`にフルパスでなくファイル名を
 
 ------------------------------------------------------------------
 ### 謝辞
-based on L-SMASH Works AviSynth r785
+based on L-SMASH Works AviSynth r785  
 L-SMASH Worksからインデックス作成部分のみを実行ファイルにしました。  
 Yusuke Nakamura/VFR-maniacさん及び開発に関わった方々にお礼申し上げます。
 
